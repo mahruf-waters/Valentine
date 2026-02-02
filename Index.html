@@ -162,8 +162,8 @@ card.innerHTML=`
 <h1>I knew it, Faimah! 💘</h1>
 <p>Happy Valentine’s Day my love 🌹<br/>Forever yours,<br/><b>Water 💧</b></p>`;
 startFlowers();
-setTimeout(startEmojis,60000);
-setTimeout(showLove,75000);
+setTimeout(startEmojis,10000);
+setTimeout(showLove,12000);
 });
 
 function startFlowers(){
@@ -171,7 +171,7 @@ const flowers=["🌹","🌸","🌺","🌷","💐"];
 const i=setInterval(()=>{
 spawn(flowers,"flower",10);
 },300);
-setTimeout(()=>clearInterval(i),60000);
+setTimeout(()=>clearInterval(i),10000);
 }
 
 function startEmojis(){
