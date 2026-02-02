@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For Faimah 💕</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif}
+
+body{
+height:100vh;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden
+}
+
+.card{
+background:rgba(255,255,255,0.93);
+padding:30px 20px;
+border-radius:24px;
+text-align:center;
+width:90%;
+max-width:360px;
+box-shadow:0 20px 40px rgba(0,0,0,.15)
+}
+
+h1{color:#e6005c;font-size:1.9rem;margin-bottom:12px}
+p{color:#444;font-size:1.1rem;margin-bottom:30px}
+
+.buttons{position:relative;height:120px}
+
+button{
+padding:14px 28px;
+border:none;
+border-radius:30px;
+font-size:1.1rem;
+cursor:pointer
+}
+
+#yesBtn{
+background:#ff4d6d;
+color:#fff;
+position:absolute;
+left:50%;
+transform:translateX(-50%)
+}
+
+#noBtn{
+background:#ccc;
+color:#333;
+position:absolute;
+left:20%;
+top:60px
+}
+
+.watermark{
+position:fixed;
+bottom:10px;
+right:15px;
+font-size:.9rem;
+color:rgba(255,255,255,.6);
+font-style:italic
+}
+
+.flower,.emoji{
+position:absolute;
+font-size:2rem;
+animation:floatUp linear forwards;
+pointer-events:none
+}
+
+@keyframes floatUp{
+from{transform:translateY(100vh);opacity:1}
+to{transform:translateY(-10vh);opacity:0}
+}
+
+/* LOVE LETTER MODAL */
+.love-modal{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,.55);
+backdrop-filter:blur(6px);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:999
+}
+
+.love-content{
+background:#fff;
+padding:28px 22px;
+border-radius:24px;
+max-width:360px;
+width:90%;
+text-align:center;
+box-shadow:0 25px 50px rgba(0,0,0,.25)
+}
+
+.love-content h2{color:#e6005c;margin-bottom:14px}
+.love-content p{font-size:1.05rem;color:#444;line-height:1.6;min-height:180px}
+.love-content button{
+margin-top:20px;
+padding:12px 26px;
+border:none;
+border-radius:30px;
+background:#ff4d6d;
+color:#fff;
+font-size:1rem
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c2a1c1e8c.mp3">
+</audio>
+
+<div class="card" id="card">
+<h1>Hey Faimah 💕</h1>
+<p>Faimah, will you be my Valentine? 🌹</p>
+<div class="buttons">
+<button id="yesBtn">Yes 💖</button>
+<button id="noBtn">No 🙈</button>
+</div>
+</div>
+
+<div class="watermark">— Water 💧</div>
+
+<!-- LOVE LETTER -->
+<div class="love-modal" id="loveModal">
+<div class="love-content">
+<h2>My Dearest Faimah 💌</h2>
+<p id="letterText"></p>
+<button onclick="closeLove()">Close 💖</button>
+</div>
+</div>
+
+<script>
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+const card=document.getElementById("card");
+const bgMusic=document.getElementById("bgMusic");
+const loveModal=document.getElementById("loveModal");
+const letterText=document.getElementById("letterText");
+
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
+
+function moveNo(){
+noBtn.style.left=Math.random()*70+"%";
+noBtn.style.top=Math.random()*80+"%";
+}
+
+yesBtn.addEventListener("click",()=>{
+bgMusic.play();
+card.innerHTML=`
+<h1>I knew it, Faimah! 💘</h1>
+<p>Happy Valentine’s Day my love 🌹<br/>Forever yours,<br/><b>Water 💧</b></p>`;
+startFlowers();
+setTimeout(startEmojis,60000);
+setTimeout(showLove,75000);
+});
+
+function startFlowers(){
+const flowers=["🌹","🌸","🌺","🌷","💐"];
+const i=setInterval(()=>{
+spawn(flowers,"flower",10);
+},300);
+setTimeout(()=>clearInterval(i),60000);
+}
+
+function startEmojis(){
+const emojis=["❤️","🥰","😍","💖","💕","😘"];
+setInterval(()=>spawn(emojis,"emoji",8),400);
+}
+
+function spawn(arr,cls,life){
+const e=document.createElement("div");
+e.className=cls;
+e.innerText=arr[Math.floor(Math.random()*arr.length)];
+e.style.left=Math.random()*100+"vw";
+e.style.animationDuration=4+Math.random()*4+"s";
+document.body.appendChild(e);
+setTimeout(()=>e.remove(),life*1000);
+}
+
+/* TYPING LOVE LETTER */
+const letter=`From the moment you came into my life,
+everything became softer, warmer, and brighter.
+
+Your smile is my favorite place to rest,
+your laugh my favorite sound,
+and your love my greatest blessing.
+
+Thank you for choosing me today
+and every day after.
+
+Forever yours,
+Water 💧`;
+
+function showLove(){
+loveModal.style.display="flex";
+typeLetter(letter);
+}
+
+function typeLetter(text){
+let i=0;
+letterText.innerHTML="";
+const t=setInterval(()=>{
+letterText.innerHTML+=text.charAt(i);
+i++;
+if(i>=text.length)clearInterval(t);
+},45);
+}
+
+function closeLove(){
+loveModal.style.display="none";
+window.location.href=
+"https://wa.me/?text=I%20just%20saw%20what%20you%20made%20for%20me%20Water%20💖%20Happy%20Valentine’s%20Day%20🥰";
+}
+</script>
+
+</body>
+</html>
